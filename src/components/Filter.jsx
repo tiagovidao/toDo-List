@@ -1,6 +1,9 @@
+import { useTodos } from '../TodosContext.jsx';
 import './Filter.scss';
 
 function Filter() {
+
+    const store = useTodos();
 
     return (
     <>
@@ -8,15 +11,23 @@ function Filter() {
             <div>
                 <p>Filter by state</p>
                 <div className="badges">
-                    <div className="badge selected">
+                    <div 
+                        className={`badge ${store.filterBy === 'todo' ? 'selected' : ''}`}
+                        onClick={()=> store.setFilterBy('todo')}>
                         To-Do
                     </div>
-                    <div className="badge">
+                    <div 
+                        className={`badge ${store.filterBy === 'done' ? 'selected' : ''}`}
+                        onClick={()=> store.setFilterBy('done')}>
                         Done
                     </div>
-                    <span className="clear">
-                        x clear
-                    </span>
+                    {
+                        store.filterBy &&
+                        <span onClick={()=> store.setFilterBy('')} className="clear">
+                            x clear
+                         </span>
+                    }
+                    
                 </div>
             </div>
         </div>
